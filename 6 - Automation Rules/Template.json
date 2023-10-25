@@ -1,0 +1,83 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workspace": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the Sentinel workspace where the automation rule will be deployed"
+            }
+        },
+        "ResourceGroupName": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().name]"
+        },
+        "TenantID": {
+            "type": "string",
+            "defaultValue": "[subscription().tenantId]"
+        },
+        "SubscriptionID": {
+            "type": "string",
+            "defaultValue": "[subscription().id]"
+        },
+        "automationRuleName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the automation rule that will be deployed.."
+            },
+            "defaultValue": "Automation Rule Name"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.OperationalInsights/workspaces/providers/automationRules",
+            "name": "[concat(parameters('workspace'),'/Microsoft.SecurityInsights/',parameters('automationRuleName'))]",
+            "apiVersion": "2019-01-01-preview",
+            "properties": {
+                "displayName": "Run-ChatGPT-Playbook",
+                "order": 10,
+                "triggeringLogic": {
+                    "isEnabled": true,
+                    "triggersOn": "Incidents",
+                    "triggersWhen": "Created",
+                    "conditions": [
+                        {
+                            "conditionType": "Property",
+                            "conditionProperties": {
+                                "propertyName": "IncidentRelatedAnalyticRuleIds",
+                                "operator": "Contains",
+                                "propertyValues": [
+                                    "/subscriptions/b531859d-0fe7-4122-a543-baf47d676e5f/resourceGroups/sentinel-workspace1/providers/Microsoft.OperationalInsights/workspaces/SAIO-ARM/providers/Microsoft.SecurityInsights/alertRules/46a20892-146c-422b-890e-4245faba3818"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "actions": [
+                    {
+                        "order": 1,
+                        "actionType": "RunPlaybook",
+                        "actionConfiguration": {
+                            "logicAppResourceId": "/subscriptions/b531859d-0fe7-4122-a543-baf47d676e5f/resourceGroups/Sentinel-workspace1/providers/Microsoft.Logic/workflows/ChatGPTdemo1",
+                            "tenantId": "d2ac78a1-0509-4cac-ba6b-7163d55bf4c0"
+                        }
+                    }
+                ],
+                "lastModifiedTimeUtc": "2023-10-24T23:38:53Z",
+                "createdTimeUtc": "2023-10-24T22:54:55Z",
+                "lastModifiedBy": {
+                    "objectId": "fd51ce49-6b4a-4743-a664-f4e2fefb4061",
+                    "email": null,
+                    "name": "External application - Azure Sentinel Content Deployment App (4b5eb30f-4c32-4b7e-b98f-ddc5f84bb90e)",
+                    "userPrincipalName": null
+                },
+                "createdBy": {
+                    "objectId": "fd51ce49-6b4a-4743-a664-f4e2fefb4061",
+                    "email": null,
+                    "name": "External application - Azure Sentinel Content Deployment App (4b5eb30f-4c32-4b7e-b98f-ddc5f84bb90e)",
+                    "userPrincipalName": null
+                }
+            }
+        ],
+        "outputs": {}
+    }
