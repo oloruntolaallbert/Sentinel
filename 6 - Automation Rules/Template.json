@@ -23,7 +23,7 @@
         "automationRuleName": {
             "type": "string",
             "metadata": {
-                "description": "The name of the automation rule that will be deployed.."
+                "description": "The name of the automation rule that will be deployed."
             },
             "defaultValue": "Automation Rule Name"
         }
@@ -78,6 +78,6 @@
                     "userPrincipalName": null
                 }
             }
-        ],
-        "outputs": {}
-    }
+        }
+    ]
+}
