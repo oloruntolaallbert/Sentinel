@@ -47,7 +47,7 @@
                 "[resourceId('Microsoft.Authorization/policyDefinitions/', 'locationDef01')]"
             ],
             "properties": {
-                "scope": "[subscription().id]",
+                "scope": "b531859d-0fe7-4122-a543-baf47d676e5f",
                 "policyDefinitionId": "[resourceId('Microsoft.Authorization/policyDefinitions', 'locationDef01')]"
             }
         },
@@ -57,15 +57,15 @@
             "apiVersion": "2017-05-01",
             "properties": {
                 "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', parameters('roleDefinitionId'))]",
-                "principalId": "[parameters('principalId')]",
-                "scope": "[subscription().id]"
+                "principalId": "9128ecf2-05d5-49cb-9655-edab128eb07a",
+                "scope": "b531859d-0fe7-4122-a543-baf47d676e5f"
             }
         },
         {
             "type": "Microsoft.Resources/deployments",
             "name": "rg-nested",
             "apiVersion": "2017-05-10",
-            "resourceGroup": "msp-rg",
+            "resourceGroup": "SAIO-ARM",
             "properties": {
                 "template": {
                     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
