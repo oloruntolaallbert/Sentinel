@@ -1,14 +1,15 @@
 FileName, CommitSha
 4 - Hunting Queries/BlackCatRansowmare.json,ed5508684ed18ea3a0c5f3e8eb1b2ce3a4468e74
 1 - Watchlist/Tor+IP+Addresses.json,28f8cdbd7ace59eee732aa86315feb4dae18c9dd
-7 - Workbooks/Data+Collection+Rule+Toolkit-1.json,0fe98120303a0bf5fa3ab74efdc248997b26c33d
-5 - Playbooks/MicrosoftSentinel-ChatGPT-Playbook.json,6257bef14c115967b0c40fad669ef269f44bf17b
-Workspace+Usage+Report.json,02b7152903b1c0a3d0b5f99508b5bfcbfdcd5fa2
-6 - Automation Rules/Template.json,77af945045696504a0a1c05e02c822a1a69299a6
-6 - Automation Rules/Run-ChatGPT-Playbook.json,4326a76796eef7fe6bf722876ac760a9c896746a
-3 - Analytics Rules/User+agent+search+for+log4j+exploitation+attempt.json,f919b0ab7db2b52a01c2f3f3aa848530d2bf63cb
-Microsoft+Sentinel+Cost.json,47cb40430d4aa89c3aa35c5f0e8aa0e032961a59
-3 - Analytics Rules/Azure+Diagnostic+settings+removed+from+a+resource.json,c7accd2d5e54b8c03aff6307f635b88463bb068f
 3 - Analytics Rules/Log4j+vulnerability+exploit.json,91917d9c313c783a8a6d202b9176fffabd28c98f
+4 - Hunting Queries/Suspicious-command-hunting-to-remove-files.json,67b3786b4e556f949b1104e03117310e9be9bb69
+6 - Automation Rules/Run-ChatGPT-Playbook.json,4326a76796eef7fe6bf722876ac760a9c896746a
+7 - Workbooks/Data+Collection+Rule+Toolkit-1.json,0fe98120303a0bf5fa3ab74efdc248997b26c33d
+6 - Automation Rules/Template.json,77af945045696504a0a1c05e02c822a1a69299a6
+5 - Playbooks/MicrosoftSentinel-ChatGPT-Playbook.json,6257bef14c115967b0c40fad669ef269f44bf17b
+Microsoft+Sentinel+Cost.json,47cb40430d4aa89c3aa35c5f0e8aa0e032961a59
+Workspace+Usage+Report.json,02b7152903b1c0a3d0b5f99508b5bfcbfdcd5fa2
+3 - Analytics Rules/User+agent+search+for+log4j+exploitation+attempt.json,f919b0ab7db2b52a01c2f3f3aa848530d2bf63cb
 2 - Parsers/Repository+Parser.json,8de254d7dafb35eacee46883397eed8eac42698b
+3 - Analytics Rules/Azure+Diagnostic+settings+removed+from+a+resource.json,c7accd2d5e54b8c03aff6307f635b88463bb068f
 
