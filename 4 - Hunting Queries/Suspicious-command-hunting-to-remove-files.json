@@ -26,14 +26,14 @@
         },
         "tactics": {
             "type": "String",
-           "defaultValue": "Defense Evasion"
+           "defaultValue": "Defense Evasion",
             "metadata": {
                 "description": "Allowed value is a comma separated subset of the following values: DefenseEvasion, Impact, CommandAndControl, Collection, LateralMovement, PreAttack, Exfiltration, Discovery, CredentialAccess, PrivilegeEscalation, Persistence, Execution, InitialAccess"
             }
         },
         "techniques": {
             "type": "String",
-           "defaultValue": " T1070.004"
+           "defaultValue": " T1070.004",
             "metadata": {
                 "description": "Allowed value is a comma separated subset of the following values: DefenseEvasion, Impact, CommandAndControl, Collection, LateralMovement, PreAttack, Exfiltration, Discovery, CredentialAccess, PrivilegeEscalation, Persistence, Execution, InitialAccess"
             }
@@ -62,7 +62,7 @@
                     },
                   {
                         "Name": "techniques",
-                        "Value": "[parameters('tactics')]"
+                        "Value": "[parameters('techniques')]"
                     }
                   
                 ]
