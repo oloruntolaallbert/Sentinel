@@ -54,7 +54,7 @@
                 "Tags": [
                     {
                         "Name": "description",
-                        "Value": "Recent analyses published, uncovered DarkGate operators removing malicious indicators. The followinq query has derived from malware analysis, however it should be considered as low precision hunting method and should be fine tuned based on your environment to achieve high precision."
+                        "Value": "uncovered DarkGate operators removing malicious indicators."
                     },
                     {
                         "Name": "tactics",
