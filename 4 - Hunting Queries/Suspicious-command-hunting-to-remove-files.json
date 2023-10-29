@@ -18,11 +18,8 @@
         },
         "query": {
             "type": "string",
-           "defaultValue": "let Timeframe = 30d; 
-DeviceProcessEvents
-| where Timestamp > ago(Timeframe)
-| where ProcessCommandLine contains "&& rmdir" and ProcessCommandLine contains "&& del"
-| project Timestamp, DeviceName, FileName, FolderPath, SHA256, ProcessVersionInfoFileDescription, ProcessCommandLine, AccountName, InitiatingProcessParentFileName"
+           "defaultValue": "let Timeframe = 30d;\nDeviceProcessEvents\n| where Timestamp > ago(Timeframe)\n| where ProcessCommandLine contains \"&& rmdir\" and ProcessCommandLine contains \"&& del\"\n| project Timestamp, DeviceName, FileName, FolderPath, SHA256, ProcessVersionInfoFileDescription, ProcessCommandLine, AccountName, InitiatingProcessParentFileName",
+
             "metadata": {
                 "description": "Type your query here (f.e. SigninLogs | take 10)"
             }
@@ -65,7 +62,7 @@ DeviceProcessEvents
                     },
                   {
                         "Name": "techniques",
-                        "Value": "Demo"
+                        "Value": "[parameters('tactics')]"
                     }
                   
                 ]
