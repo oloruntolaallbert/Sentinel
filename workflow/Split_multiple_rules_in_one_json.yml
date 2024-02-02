@@ -1,0 +1,47 @@
+name: Split Analytical JSON Rules
+
+on:
+  push:
+    paths:
+      - 'SentinelArtifacts/Bulkupload/Azure_Sentinel_analytics_rules.json'
+
+jobs:
+  split-rules:
+    runs-on: ubuntu-latest
+    name: Split JSON Rules into Separate Files
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Split JSON rules
+        run: |
+          # Directory where individual rule files will be placed
+          RULES_DIR='SentinelArtifacts/AnalyticalRules'
+          mkdir -p $RULES_DIR
+          
+          # Base structure to prepend to each rule as a string variable
+          BASE_STRUCTURE='{ "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#", "contentVersion": "1.0.0.0", "parameters": { "workspace": { "type": "String" }}, "resources":'
+          
+          # Split rules to individual files
+          jq -c '.resources[]' SentinelArtifacts/Bulkupload/Azure_Sentinel_analytics_rules.json | while read -r rule; do
+            displayName=$(echo "$rule" | jq -r '.properties.displayName')
+            filename=$(echo "$displayName" | awk '{ gsub(/[^a-zA-Z0-9]+/, "-", $0); gsub(/^[-]+|[-]+$/, ""); print tolower($0) }')".json"
+            # Combine base structure with the rule and write to individual file
+            echo $BASE_STRUCTURE "[$rule]}" > "${RULES_DIR}/${filename}"
+          done
+        shell: bash
+
+      - name: Commit new rule files
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add SentinelArtifacts/AnalyticalRules/
+          # Only proceed if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m 'Add individual analytical rule files'
+            git push
+          fi
+        shell: bash
