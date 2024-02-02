@@ -1,0 +1,63 @@
+on:
+  push:
+    branches: [main]
+    paths:
+      - "SentinelArtifacts/AnalyticRules/*.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+name: Build YAML Analytic Rules
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build YAML Analytic Rules
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Convert rules to YAML and move to RulesInYaml
+        run: |
+          Install-Module SentinelARConverter -AcceptLicense -Force
+          $conversionSucceeded = $true
+          Get-ChildItem -Path 'SentinelArtifacts/AnalyticRules' -Filter '*.json' | ForEach-Object {
+              $jsonFilePath = $_.FullName
+              $yamlFileName = $_.BaseName + '.yaml'
+              $yamlFilePath = Join-Path $PWD 'RulesInYaml' $yamlFileName
+
+              if (-not (Test-Path $yamlFilePath) -or (Get-Item $yamlFilePath).LastWriteTime -lt $_.LastWriteTime) {
+                  try {
+                      Write-Output "Converting $jsonFilePath to $yamlFilePath"
+                      $yamlContent = Convert-SentinelARArmToYaml -Filename $jsonFilePath
+                      if (-not [string]::IsNullOrWhiteSpace($yamlContent)) {
+                          New-Item -Path $yamlFilePath -Force -ItemType File -Value $yamlContent
+                      } else {
+                          Write-Warning "No YAML content was returned from the conversion"
+                          $conversionSucceeded = $false
+                      }
+                  } catch {
+                      $fileName = $_.Exception.Source.Replace($PWD.Path + "/", "")
+                      Write-Warning "Error converting $fileName to YAML format: $($_.Exception.Message)"
+                      $conversionSucceeded = $false
+                  }
+              }
+          }
+          if (-not $conversionSucceeded) {
+              Write-Error "One or more files failed to convert"
+              exit 1
+          }
+        shell: pwsh
+
+      - name: Commit and push RulesInYaml changes
+        run: |
+          git config --global user.name 'SentinelARConverter'
+          git config --global user.email 'email@gmail.com'
+          git add -A RulesInYaml/
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Add/Update YAML Analytic Rules in RulesInYaml directory."
+            git push origin HEAD:main
+          else
+            echo "No changes to commit in RulesInYaml"
+          fi
+        shell: bash
